@@ -33,7 +33,7 @@ public class StopatAngle extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         
-        return (this.timeSinceInitialized()>=timeout) || (Math.abs(angle) <= Math.abs(Pigeon.getInstance().getAngle().getDegrees()));
+        return (this.timeSinceInitialized() >= timeout) || (Math.abs(angle) <= Math.abs(Pigeon.getInstance().getAngle().getDegrees()));
     }
 
     // Called once after isFinished returns true

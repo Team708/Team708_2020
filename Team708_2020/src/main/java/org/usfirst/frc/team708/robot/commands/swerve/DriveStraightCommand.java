@@ -14,7 +14,7 @@ public class DriveStraightCommand extends Command {
 
 	
     public DriveStraightCommand(double angle, double power) {
-        this.driveVector = Rotation2d.fromDegrees(angle+90).toTranslation().scale(power);
+        this.driveVector = Rotation2d.fromDegrees(angle + 90).toTranslation().scale(power);
         
     }
 
@@ -32,7 +32,6 @@ public class DriveStraightCommand extends Command {
         Robot.swerve.updatePose(Timer.getFPGATimestamp());
         Robot.swerve.updateControlCycle(Timer.getFPGATimestamp());
         Robot.swerve.lastUpdateTimestamp = Timer.getFPGATimestamp();
-
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +41,7 @@ public class DriveStraightCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    
+        Swerve.getInstance().stop(); //LFH CHANGED
     }
 
     // Called when another command which requires one or more of the same
