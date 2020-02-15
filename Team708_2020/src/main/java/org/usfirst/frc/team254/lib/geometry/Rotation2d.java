@@ -1,16 +1,17 @@
-package org.usfirst.frc.team254.lib.util.math;
+package org.usfirst.frc.team254.lib.geometry;
+
+import org.usfirst.frc.team254.lib.util.Util;
 
 import java.text.DecimalFormat;
 
-import org.usfirst.frc.team708.robot.util.libs.Interpolable;
-import org.usfirst.frc.team708.robot.util.libs.Util;
+import static org.usfirst.frc.team254.lib.util.Util.kEpsilon;
 
 /**
  * A rotation in a 2d coordinate frame represented a point on the unit circle (cosine and sine).
- * 
+ * <p>
  * Inspired by Sophus (https://github.com/strasdat/Sophus/tree/master/sophus)
  */
-public class Rotation2d implements Interpolable<Rotation2d> {
+public class Rotation2d implements IRotation2d<Rotation2d> {
     protected static final Rotation2d kIdentity = new Rotation2d();
 
     public static final Rotation2d identity() {
@@ -21,20 +22,36 @@ public class Rotation2d implements Interpolable<Rotation2d> {
 
     protected double cos_angle_;
     protected double sin_angle_;
-    protected double theta_degrees;
-    protected double theta_radians;
+    protected double theta_degrees = 0;
+    protected double theta_radians = 0;
 
     public Rotation2d() {
         this(1, 0, false);
     }
 
     public Rotation2d(double x, double y, boolean normalize) {
-        cos_angle_ = x;
-        sin_angle_ = y;
-        theta_degrees = Math.toDegrees(Math.atan2(y, x));
         if (normalize) {
-            normalize();
+            // From trig, we know that sin^2 + cos^2 == 1, but as we do math on this object we might accumulate rounding errors.
+            // Normalizing forces us to re-scale the sin and cos to reset rounding errors.
+            double magnitude = Math.hypot(x, y);
+            if (magnitude > kEpsilon) {
+                sin_angle_ = y / magnitude;
+                cos_angle_ = x / magnitude;
+            } else {
+                sin_angle_ = 0;
+                cos_angle_ = 1;
+            }
+        } else {
+            cos_angle_ = x;
+            sin_angle_ = y;
         }
+	    theta_degrees = Math.toDegrees(Math.atan2(sin_angle_, cos_angle_));
+    }
+
+    public Rotation2d(final Rotation2d other) {
+        cos_angle_ = other.cos_angle_;
+        sin_angle_ = other.sin_angle_;
+        theta_degrees = Math.toDegrees(Math.atan2(sin_angle_, cos_angle_));
     }
     
     public Rotation2d(double theta_degrees){
@@ -43,12 +60,7 @@ public class Rotation2d implements Interpolable<Rotation2d> {
     	this.theta_degrees = theta_degrees;
     }
 
-    public Rotation2d(Rotation2d other) {
-        cos_angle_ = other.cos_angle_;
-        sin_angle_ = other.sin_angle_;
-    }
-
-    public Rotation2d(Translation2d direction, boolean normalize) {
+    public Rotation2d(final Translation2d direction, boolean normalize) {
         this(direction.x(), direction.y(), normalize);
     }
 
@@ -60,7 +72,7 @@ public class Rotation2d implements Interpolable<Rotation2d> {
         return new Rotation2d(angle_degrees);
     }
 
-    /**
+        /**
      * From trig, we know that sin^2 + cos^2 == 1, but as we do math on this object we might accumulate rounding errors.
      * Normalizing forces us to re-scale the sin and cos to reset rounding errors.
      */
@@ -108,12 +120,11 @@ public class Rotation2d implements Interpolable<Rotation2d> {
 
     /**
      * We can rotate this Rotation2d by adding together the effects of it and another rotation.
-     * 
-     * @param other
-     *            The other rotation. See: https://en.wikipedia.org/wiki/Rotation_matrix
+     *
+     * @param other The other rotation. See: https://en.wikipedia.org/wiki/Rotation_matrix
      * @return This rotation rotated by other.
      */
-    public Rotation2d rotateBy(Rotation2d other) {
+    public Rotation2d rotateBy(final Rotation2d other) {
         return new Rotation2d(cos_angle_ * other.cos_angle_ - sin_angle_ * other.sin_angle_,
                 cos_angle_ * other.sin_angle_ + sin_angle_ * other.cos_angle_, true);
     }
@@ -124,23 +135,39 @@ public class Rotation2d implements Interpolable<Rotation2d> {
 
     /**
      * The inverse of a Rotation2d "undoes" the effect of this rotation.
-     * 
+     *
      * @return The opposite of this rotation.
      */
     public Rotation2d inverse() {
         return new Rotation2d(cos_angle_, -sin_angle_, false);
     }
 
-    public boolean isParallel(Rotation2d other) {
-        return Util.epsilonEquals(Translation2d.cross(toTranslation(), other.toTranslation()), 0.0, kEpsilon);
+    public boolean isParallel(final Rotation2d other) {
+        return Util.epsilonEquals(Translation2d.cross(toTranslation(), other.toTranslation()), 0.0);
     }
 
     public Translation2d toTranslation() {
         return new Translation2d(cos_angle_, sin_angle_);
     }
+    
+    /**
+     * @return The pole nearest to this rotation.
+     */
+    public Rotation2d nearestPole(){
+    	double pole_sin = 0.0;
+    	double pole_cos = 0.0;
+    	if(Math.abs(cos_angle_) > Math.abs(sin_angle_)){
+    		pole_cos = Math.signum(cos_angle_);
+    		pole_sin = 0.0;
+    	}else{
+    		pole_cos = 0.0;
+    		pole_sin = Math.signum(sin_angle_);
+    	}
+    	return new Rotation2d(pole_cos, pole_sin, false);
+    }
 
     @Override
-    public Rotation2d interpolate(Rotation2d other, double x) {
+    public Rotation2d interpolate(final Rotation2d other, double x) {
         if (x <= 0) {
             return new Rotation2d(this);
         } else if (x >= 1) {
@@ -154,5 +181,27 @@ public class Rotation2d implements Interpolable<Rotation2d> {
     public String toString() {
         final DecimalFormat fmt = new DecimalFormat("#0.000");
         return "(" + fmt.format(getDegrees()) + " deg)";
+    }
+
+    @Override
+    public String toCSV() {
+        final DecimalFormat fmt = new DecimalFormat("#0.000");
+        return fmt.format(getDegrees());
+    }
+
+    @Override
+    public double distance(final Rotation2d other) {
+        return inverse().rotateBy(other).getRadians();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other == null || !(other instanceof Rotation2d)) return false;
+        return distance((Rotation2d)other) < Util.kEpsilon;
+    }
+
+    @Override
+    public Rotation2d getRotation() {
+        return this;
     }
 }

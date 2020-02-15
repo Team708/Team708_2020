@@ -1,6 +1,6 @@
 package org.usfirst.frc.team708.robot.vision;
 
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
 
 /**
  * A container class to specify the shooter angle. It contains the desired range, the field_to_goal_angle

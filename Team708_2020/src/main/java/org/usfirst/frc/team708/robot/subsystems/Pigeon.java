@@ -5,7 +5,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
 import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import org.usfirst.frc.team708.robot.RobotMap;
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

@@ -6,7 +6,9 @@ package org.usfirst.frc.team708.robot;
  * gamepad controls are found in OI
  */
 
-import org.usfirst.frc.team254.lib.util.math.Translation2d;
+import org.usfirst.frc.team254.lib.geometry.Translation2d;
+import org.usfirst.frc.team254.lib.geometry.Pose2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
 
 public final class Constants {
 
@@ -187,6 +189,28 @@ public final class Constants {
 	public static final Translation2d kLeftMostCubeCorner = kLeftSwitchFarCorner.translateBy(new Translation2d(kCubeWidth, 0.0));
 	public static final Translation2d kSecondLeftCube = kLeftMostCube.translateBy(new Translation2d(0.0, kCubeWidth + (15.1/12.0)));
 	public static final Translation2d kSecondLeftCubeCorner = kSecondLeftCube.translateBy(new Translation2d(0.0, -kCubeWidth/2.0));
+
+	public static final Translation2d kLeftSwitchTarget = new Translation2d(140.0 / 12.0, 13.5 - (51.875 / 12.0));
+	public static final Translation2d kRightSwitchTarget = new Translation2d(140.0 / 12.0, 13.5 + (51.875 / 12.0));
+	public static final double kTargetHeight = 18.75 / 2.0 / 12.0;
+		
+	public static final Pose2d kRobotStartingPose = new Pose2d(new Translation2d(Constants.ROBOT_HALF_LENGTH, Constants.kAutoStartingCorner.y() + Constants.ROBOT_HALF_WIDTH), Rotation2d.fromDegrees(0));
+	public static final Pose2d kRobotLeftStartingPose = new Pose2d(new Translation2d(Constants.ROBOT_HALF_WIDTH, 5.5 - Constants.ROBOT_HALF_LENGTH), Rotation2d.fromDegrees(-90));
+	public static final Pose2d kRobotAssistStartingPose = new Pose2d(kRobotLeftStartingPose.getTranslation(), Rotation2d.fromDegrees(90.0));
+	
+	//Path following constants
+    public static final double kPathLookaheadTime = 0.25;  // seconds to look ahead along the path for steering 0.4
+	public static double kPathMinLookaheadDistance = 0.5;  // feet 2.0 (we've been using 0.25)
+	public static void setLookaheadDistance(double distance){
+		kPathMinLookaheadDistance = distance;
+	}
+
+	//Swerve Speed Constants
+    public static final double kSwerveDriveMaxSpeed = 5432.0;
+    public static final double kSwerveMaxSpeedFeetPerSecond = 12.5;
+	public static final double kSwerveRotationMaxSpeed = 1250.0 * 0.8; //The 0.8 is to request a speed that is always achievable
+	public static final double kSwerveRotation10VoltMaxSpeed = 1350.0;
+	public static final double kSwerveRotationSpeedScalar = ((1.0 / 0.125) - 1.0) / kSwerveMaxSpeedFeetPerSecond;
 	
 /*
  * 2020 Field Landmarks

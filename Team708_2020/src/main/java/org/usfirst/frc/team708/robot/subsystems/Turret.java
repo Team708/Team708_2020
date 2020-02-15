@@ -1,5 +1,5 @@
 package org.usfirst.frc.team708.robot.subsystems;
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;

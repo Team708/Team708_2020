@@ -9,9 +9,9 @@ import org.usfirst.frc.team708.robot.vision.ShooterAimingParameters;
 import org.usfirst.frc.team708.robot.vision.TargetInfo;
 import org.usfirst.frc.team708.robot.util.libs.InterpolatingDouble;
 import org.usfirst.frc.team708.robot.util.libs.InterpolatingTreeMap;
-import org.usfirst.frc.team254.lib.util.math.RigidTransform2d;
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
-import org.usfirst.frc.team254.lib.util.math.Translation2d;
+import org.usfirst.frc.team254.lib.geometry.RigidTransform2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Translation2d;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

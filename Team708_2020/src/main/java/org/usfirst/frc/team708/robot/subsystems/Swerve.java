@@ -12,9 +12,9 @@ import org.usfirst.frc.team708.robot.pathfinder.PathfinderPath;
 import org.usfirst.frc.team708.robot.util.libs.SwerveHeadingController;
 import org.usfirst.frc.team708.robot.util.libs.SwerveKinematics;
 import org.usfirst.frc.team708.robot.util.libs.Util;
-import org.usfirst.frc.team254.lib.util.math.RigidTransform2d;
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
-import org.usfirst.frc.team254.lib.util.math.Translation2d;
+import org.usfirst.frc.team254.lib.geometry.RigidTransform2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Translation2d;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -145,7 +145,7 @@ public class Swerve extends Subsystem{
 		else{
 			double tmp = (y* angle.cos()) + (x * angle.sin());
 			xInput = (-y * angle.sin()) + (x * angle.cos());
-			yInput = tmp;			
+			yInput = tmp;
 		}
 		
 		isInLowPower = lowPower;
@@ -381,6 +381,7 @@ public class Swerve extends Subsystem{
 			yInput = tmp;
 			if(!currentPath.rotationOverride())
 				rotationCorrection = rotationCorrection*pathMotorOutput*currentPath.rotationScalar();
+
 		    kinematics.calculate(xInput * pathMotorOutput, yInput * pathMotorOutput, rotationCorrection);
 		    for(int i=0; i<modules.size(); i++){
 	    		if(Util.shouldReverse(kinematics.wheelAngles[i], modules.get(i).getModuleAngle().getDegrees())){

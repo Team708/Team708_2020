@@ -9,9 +9,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.util.libs.Util;
-import org.usfirst.frc.team254.lib.util.math.RigidTransform2d;
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
-import org.usfirst.frc.team254.lib.util.math.Translation2d;
+import org.usfirst.frc.team254.lib.geometry.RigidTransform2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Translation2d;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Subsystem;

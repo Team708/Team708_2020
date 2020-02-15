@@ -1,55 +1,57 @@
-package org.usfirst.frc.team254.lib.util.math;
+package org.usfirst.frc.team254.lib.geometry;
 
-import org.usfirst.frc.team708.robot.util.libs.Interpolable;
-import org.usfirst.frc.team708.robot.util.libs.Util;
+import org.usfirst.frc.team254.lib.util.Util;
 
 /**
  * Represents a 2d pose (rigid transform) containing translational and rotational elements.
- * 
+ * <p>
  * Inspired by Sophus (https://github.com/strasdat/Sophus/tree/master/sophus)
  */
-public class RigidTransform2d implements Interpolable<RigidTransform2d> {
-    protected static final double kEpsilon = 1E-9;
+public class Pose2d implements IPose2d<Pose2d> {
+    protected static final Pose2d kIdentity = new Pose2d();
 
-    protected static final RigidTransform2d kIdentity = new RigidTransform2d();
-
-    public static final RigidTransform2d identity() {
+    public static final Pose2d identity() {
         return kIdentity;
     }
 
     private final static double kEps = 1E-9;
 
-    protected Translation2d translation_;
-    protected Rotation2d rotation_;
+    protected final Translation2d translation_;
+    protected final Rotation2d rotation_;
 
-    public RigidTransform2d() {
+    public Pose2d() {
         translation_ = new Translation2d();
         rotation_ = new Rotation2d();
     }
 
-    public RigidTransform2d(Translation2d translation, Rotation2d rotation) {
+    public Pose2d(double x, double y, final Rotation2d rotation) {
+        translation_ = new Translation2d(x, y);
+        rotation_ = rotation;
+    }
+
+    public Pose2d(final Translation2d translation, final Rotation2d rotation) {
         translation_ = translation;
         rotation_ = rotation;
     }
 
-    public RigidTransform2d(RigidTransform2d other) {
+    public Pose2d(final Pose2d other) {
         translation_ = new Translation2d(other.translation_);
         rotation_ = new Rotation2d(other.rotation_);
     }
 
-    public static RigidTransform2d fromTranslation(Translation2d translation) {
-        return new RigidTransform2d(translation, new Rotation2d());
+    public static Pose2d fromTranslation(final Translation2d translation) {
+        return new Pose2d(translation, new Rotation2d());
     }
 
-    public static RigidTransform2d fromRotation(Rotation2d rotation) {
-        return new RigidTransform2d(new Translation2d(), rotation);
+    public static Pose2d fromRotation(final Rotation2d rotation) {
+        return new Pose2d(new Translation2d(), rotation);
     }
 
     /**
-     * Obtain a new RigidTransform2d from a (constant curvature) velocity. See:
+     * Obtain a new Pose2d from a (constant curvature) velocity. See:
      * https://github.com/strasdat/Sophus/blob/master/sophus/se2.hpp
      */
-    public static RigidTransform2d exp(Twist2d delta) {
+    public static Pose2d exp(final Twist2d delta) {
         double sin_theta = Math.sin(delta.dtheta);
         double cos_theta = Math.cos(delta.dtheta);
         double s, c;
@@ -60,14 +62,14 @@ public class RigidTransform2d implements Interpolable<RigidTransform2d> {
             s = sin_theta / delta.dtheta;
             c = (1.0 - cos_theta) / delta.dtheta;
         }
-        return new RigidTransform2d(new Translation2d(delta.dx * s - delta.dy * c, delta.dx * c + delta.dy * s),
+        return new Pose2d(new Translation2d(delta.dx * s - delta.dy * c, delta.dx * c + delta.dy * s),
                 new Rotation2d(cos_theta, sin_theta, false));
     }
 
     /**
      * Logical inverse of the above.
      */
-    public static Twist2d log(RigidTransform2d transform) {
+    public static Twist2d log(final Pose2d transform) {
         final double dtheta = transform.getRotation().getRadians();
         final double half_dtheta = 0.5 * dtheta;
         final double cos_minus_one = transform.getRotation().cos() - 1.0;
@@ -82,54 +84,48 @@ public class RigidTransform2d implements Interpolable<RigidTransform2d> {
         return new Twist2d(translation_part.x(), translation_part.y(), dtheta);
     }
 
+    @Override
     public Translation2d getTranslation() {
         return translation_;
     }
 
-    public void setTranslation(Translation2d translation) {
-        translation_ = translation;
-    }
-
+    @Override
     public Rotation2d getRotation() {
         return rotation_;
-    }
-
-    public void setRotation(Rotation2d rotation) {
-        rotation_ = rotation;
     }
 
     /**
      * Transforming this RigidTransform2d means first translating by other.translation and then rotating by
      * other.rotation
-     * 
-     * @param other
-     *            The other transform.
+     *
+     * @param other The other transform.
      * @return This transform * other
      */
-    public RigidTransform2d transformBy(RigidTransform2d other) {
-        return new RigidTransform2d(translation_.translateBy(other.translation_.rotateBy(rotation_)),
+    @Override
+    public Pose2d transformBy(final Pose2d other) {
+        return new Pose2d(translation_.translateBy(other.translation_.rotateBy(rotation_)),
                 rotation_.rotateBy(other.rotation_));
     }
 
     /**
      * The inverse of this transform "undoes" the effect of translating by this transform.
-     * 
+     *
      * @return The opposite of this transform.
      */
-    public RigidTransform2d inverse() {
+    public Pose2d inverse() {
         Rotation2d rotation_inverted = rotation_.inverse();
-        return new RigidTransform2d(translation_.inverse().rotateBy(rotation_inverted), rotation_inverted);
+        return new Pose2d(translation_.inverse().rotateBy(rotation_inverted), rotation_inverted);
     }
 
-    public RigidTransform2d normal() {
-        return new RigidTransform2d(translation_, rotation_.normal());
+    public Pose2d normal() {
+        return new Pose2d(translation_, rotation_.normal());
     }
 
     /**
-     * Finds the point where the heading of this transform intersects the heading of another. Returns (+INF, +INF) if
+     * Finds the point where the heading of this pose intersects the heading of another. Returns (+INF, +INF) if
      * parallel.
      */
-    public Translation2d intersection(RigidTransform2d other) {
+    public Translation2d intersection(final Pose2d other) {
         final Rotation2d other_rotation = other.getRotation();
         if (rotation_.isParallel(other_rotation)) {
             // Lines are parallel.
@@ -143,14 +139,21 @@ public class RigidTransform2d implements Interpolable<RigidTransform2d> {
     }
 
     /**
-     * Return true if the heading of this transform is colinear with the heading of another.
+     * Return true if this pose is (nearly) colinear with the another.
      */
-    public boolean isColinear(RigidTransform2d other) {
+    public boolean isColinear(final Pose2d other) {
+        if (!getRotation().isParallel(other.getRotation()))
+            return false;
         final Twist2d twist = log(inverse().transformBy(other));
-        return (Util.epsilonEquals(twist.dy, 0.0, kEpsilon) && Util.epsilonEquals(twist.dtheta, 0.0, kEpsilon));
+        return (Util.epsilonEquals(twist.dy, 0.0) && Util.epsilonEquals(twist.dtheta, 0.0));
     }
 
-    private static Translation2d intersectionInternal(RigidTransform2d a, RigidTransform2d b) {
+    public boolean epsilonEquals(final Pose2d other, double epsilon) {
+        return getTranslation().epsilonEquals(other.getTranslation(), epsilon)
+                && getRotation().isParallel(other.getRotation());
+    }
+
+    private static Translation2d intersectionInternal(final Pose2d a, final Pose2d b) {
         final Rotation2d a_r = a.getRotation();
         final Rotation2d b_r = b.getRotation();
         final Translation2d a_t = a.getTranslation();
@@ -159,25 +162,54 @@ public class RigidTransform2d implements Interpolable<RigidTransform2d> {
         final double tan_b = b_r.tan();
         final double t = ((a_t.x() - b_t.x()) * tan_b + b_t.y() - a_t.y())
                 / (a_r.sin() - a_r.cos() * tan_b);
+        if (Double.isNaN(t)) {
+            return new Translation2d(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        }
         return a_t.translateBy(a_r.toTranslation().scale(t));
     }
 
     /**
-     * Do twist interpolation of this transform assuming constant curvature.
+     * Do twist interpolation of this pose assuming constant curvature.
      */
     @Override
-    public RigidTransform2d interpolate(RigidTransform2d other, double x) {
+    public Pose2d interpolate(final Pose2d other, double x) {
         if (x <= 0) {
-            return new RigidTransform2d(this);
+            return new Pose2d(this);
         } else if (x >= 1) {
-            return new RigidTransform2d(other);
+            return new Pose2d(other);
         }
-        final Twist2d twist = RigidTransform2d.log(inverse().transformBy(other));
-        return transformBy(RigidTransform2d.exp(twist.scaled(x)));
+        final Twist2d twist = Pose2d.log(inverse().transformBy(other));
+        return transformBy(Pose2d.exp(twist.scaled(x)));
     }
 
     @Override
     public String toString() {
         return "T:" + translation_.toString() + ", R:" + rotation_.toString();
+    }
+
+    @Override
+    public String toCSV() {
+        return translation_.toCSV() + "," + rotation_.toCSV();
+    }
+
+    @Override
+    public double distance(final Pose2d other) {
+        return Pose2d.log(inverse().transformBy(other)).norm();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other == null || !(other instanceof Pose2d)) return false;
+        return epsilonEquals((Pose2d)other, Util.kEpsilon);
+    }
+
+    @Override
+    public Pose2d getPose() {
+        return this;
+    }
+
+    @Override
+    public Pose2d mirror() {
+        return new Pose2d(new Translation2d(getTranslation().x(), -getTranslation().y()), getRotation().inverse());
     }
 }

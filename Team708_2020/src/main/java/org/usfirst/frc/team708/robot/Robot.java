@@ -22,10 +22,13 @@ import org.usfirst.frc.team708.robot.commands.swerve.DriveStraightCommand;
 import org.usfirst.frc.team708.robot.subsystems.*;
 import org.usfirst.frc.team708.robot.Constants;
 import org.usfirst.frc.team708.robot.Xbox;
-import org.usfirst.frc.team254.lib.util.math.RigidTransform2d;
-import org.usfirst.frc.team254.lib.util.math.Rotation2d;
-import org.usfirst.frc.team254.lib.util.math.Translation2d;
+import org.usfirst.frc.team254.lib.geometry.RigidTransform2d;
+import org.usfirst.frc.team254.lib.geometry.Rotation2d;
+import org.usfirst.frc.team254.lib.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+
+import org.usfirst.frc.team708.robot.pathfinder.PathTransmitter;
+import org.usfirst.frc.team254.lib.trajectory.TrajectoryGenerator;
 
 
 
@@ -43,6 +46,9 @@ public class Robot extends TimedRobot {
     public static Intake intake;
     public static Turret turret;
     public static Spinner spinner;
+
+    private TrajectoryGenerator generator = TrajectoryGenerator.getInstance();
+    private PathTransmitter transmitter = PathTransmitter.getInstance();
 
     public double speed;
     public String gameData;
@@ -76,7 +82,8 @@ public class Robot extends TimedRobot {
         driver   = new Xbox(0);
         operator = new Xbox(1);
 
-        
+        generator.generateTrajectories();
+
         swerve = Swerve.getInstance();
         Robot.swerve.zeroSensors();
         
@@ -157,6 +164,7 @@ public class Robot extends TimedRobot {
             autonomousCommand.start();
         swerve.zeroSensors();
         swerve.SetDriveBrakesOn();
+        transmitter.transmitCachedPaths();
     }
 
     /**
@@ -346,6 +354,8 @@ public class Robot extends TimedRobot {
         autonomousMode.addOption("Eight Ball Auto", new EightBallAuto());
         autonomousMode.addOption("Drive off line",  new DriveOffLineAuto());
         autonomousMode.addOption("Testing",         new DriveStraightAuto());
+        autonomousMode.addOption("LeftSwitchDropoffPathCommand", new LeftSwitchDropoffPathCommand());
+
         // autonomousMode.addOption("Tests Every Motor", new EverythingAuto());
 
         SmartDashboard.putData("Autonomous Selection", autonomousMode);
