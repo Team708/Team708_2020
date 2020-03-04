@@ -187,6 +187,9 @@ public class Intake extends Subsystem {
         
         if (intakeIn)
             Robot.spinner.spinnerMotor.set(motordirection);  //turns motor off
+<<<<<<< HEAD
+>>>>>>> parent of 1e7ea3f... hopefully practice bot works
+=======
 >>>>>>> parent of 1e7ea3f... hopefully practice bot works
         else
             moveMotorIntakeOut();

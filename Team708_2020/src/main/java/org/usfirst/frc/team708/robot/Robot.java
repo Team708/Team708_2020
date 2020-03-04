@@ -296,7 +296,10 @@ public class Robot extends TimedRobot {
         else if(driver.xButton.wasPressed())
             swerve.rotate(270);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 1e7ea3f... hopefully practice bot works
         else if(driver.rightBumper.wasPressed())
             swerve.rotate(77);
 >>>>>>> parent of 1e7ea3f... hopefully practice bot works
