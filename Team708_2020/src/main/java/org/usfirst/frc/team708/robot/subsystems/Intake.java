@@ -21,13 +21,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Intake extends Subsystem {
 
-<<<<<<< HEAD
     public  CANSparkMax    intakeMotor;
-=======
-    public CANSparkMax intakeMotor;
-    public Solenoid intakeSolenoid0, intakeSolenoid1;
-    private boolean intakeIn;
->>>>>>> parent of 8976e44... its back
 
     public DoubleSolenoid  camSolenoid;
     public DoubleSolenoid  pivotSolenoid;
@@ -165,19 +159,11 @@ public class Intake extends Subsystem {
     
     public void moveMotorIntakeIn(){
         intakeIn = true;
-<<<<<<< HEAD
         Robot.spinner.spinnerMotor.set(0);  //turns motor off
-=======
-        intakeMotor.set(0);
-        intakeSolenoid0.set(intakeIn);
-        intakeSolenoid1.set(intakeIn);
-
->>>>>>> parent of 8976e44... its back
     }
 
     public void moveMotorIntakeOut(){
         intakeIn = false;
-<<<<<<< HEAD
         Robot.spinner.spinnerMotor.set(motordirection);  //turns motor on
     }
 
@@ -194,28 +180,6 @@ public class Intake extends Subsystem {
         
         if (intakeIn)
             Robot.spinner.spinnerMotor.set(motordirection);  //turns motor off
-=======
-        intakeSolenoid0.set(intakeIn);
-        intakeSolenoid1.set(intakeIn);
-    }
-
-    public void toggleIntake(){
-        intakeIn = !intakeIn;
-        intakeSolenoid0.set(intakeIn);
-        intakeSolenoid1.set(intakeIn);
-
-    }
-
-    public void intakeMotorOn(double speed){
-        if(!intakeIn){
-            if(speed>0.2)
-                intakeMotor.set(.2);
-            else if (speed<-0.2)
-                intakeMotor.set(-.2);
-            else
-                intakeMotor.set(0);
-        }
->>>>>>> parent of 8976e44... its back
         else
             moveMotorIntakeOut();
 =======
@@ -226,35 +190,15 @@ public class Intake extends Subsystem {
 >>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
     }
 
-    //Methods below for commands
-    public void moveIntakeMotorAtSpeed(double speed){
-        if(intakeIn){
-            intakeMotor.set(speed);
-        }
-    }
-
-    public void stopIntakeMotor(){
-        intakeMotor.set(0.0);
-    }
-
     @Override
     protected void initDefaultCommand() {
         // TODO Auto-generated method stub
-
     }
 
-<<<<<<< HEAD
     public void sendToDashboard() {
         SmartDashboard.putBoolean("Hanger extended",!notExtended());
         SmartDashboard.putBoolean("Hanger retracted",!notRetracted());
         SmartDashboard.putNumber("FMS Match Time", Timer.getMatchTime());
         SmartDashboard.putNumber("Hanger Get Reference", Robot.spinner.spinnerEncoder.getPosition());
-=======
-    public void outputToSmartDashboard() {
-        SmartDashboard.putBoolean("Intake is in",intakeIn);
-
->>>>>>> parent of 8976e44... its back
     }
-
-    
 }

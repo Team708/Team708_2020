@@ -36,13 +36,9 @@ public class shootAutoCommand extends Command {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-<<<<<<< HEAD:Team708_2020/src/main/java/org/usfirst/frc/team708/robot/commands/shooter/shootAutoCommand.java
 
         // Robot.shooter.feederOn();
         // Robot.shooter.moveHoodUp();
-=======
-        Robot.intake.moveIntakeMotorAtSpeed(speed); //moves motor  whatever speed from constructor
->>>>>>> parent of 8976e44... its back:Team708_2020/src/main/java/org/usfirst/frc/team708/robot/commands/intake/IntakeMotor.java
     }
 
     // Make this return true when this Command no longer needs to run execute()
