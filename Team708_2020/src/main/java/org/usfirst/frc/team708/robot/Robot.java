@@ -48,10 +48,6 @@ public class Robot extends TimedRobot {
     public String gameData;
     public String robotLocation;
     public String autoMode;
-    // public boolean enabled = false;
-    public static String wheelTargetColor   = " ";
-    public static Boolean[] colors; //0=B, 1=G, 2=R, 3=Y, 4=Null
-
     public static DriverStation 			ds;
     public static DriverStation.Alliance 	alliance;
     public static int 						allianceColor;
@@ -90,6 +86,7 @@ public class Robot extends TimedRobot {
         
         driver.setDeadband(0.2);
         operator.setDeadband(0.2);
+<<<<<<< HEAD
         visionprocessor.setNTInfo("ledMode", Constants.kVISION_LED_ON);
 
         colors = new Boolean[4];
@@ -98,6 +95,9 @@ public class Robot extends TimedRobot {
         colors[2] = false; //Red
         colors[3] = false; //Yellow
         // colors[4] = false; //Null
+=======
+        visionprocessor.setNTInfo("ledMode", Constants.kVISION_LED_OFF);
+>>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
     
         // Robot.spinner.resetSpinnerEncoder();
 
@@ -116,9 +116,8 @@ public class Robot extends TimedRobot {
         try {
             // robot is ENABLED
      		if (RobotController.isSysActive()){
-                // enabled = true;
                  // connected to FMS
-                ds = DriverStation.getInstance();
+                 ds = DriverStation.getInstance();
                 alliance = ds.getAlliance();
 	            if (alliance == Alliance.Blue){
                        allianceColor = Constants.kALLIANCE_BLUE;
@@ -129,16 +128,12 @@ public class Robot extends TimedRobot {
                 else {
                     allianceColor = 0;
                 }
+            ColorWheelStage3 = ds.getGameSpecificMessage();
+            if (ColorWheelStage3.length() <=0)
+                ColorWheelStage3 = "X NOT SET X";
            }
-           else{ // robot is NOT ENABLED
-                allianceColor = 20;
-                colors[0] = false; //Blue
-                colors[1] = false; //Green
-                colors[2] = false; //Red
-                colors[3] = false; //Yellow
-                // colors[4] = false; //Null
-                // enabled = false;
-            }
+           else // robot is NOT ENABLED
+           {allianceColor=20;}
 		}
 		catch (Exception e)
 		{
@@ -180,14 +175,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
         swerve.SetDriveBrakesOn();
-        speed = 0.5;
-
-        //Sets all colors to false as teleop begins
-        colors[0] = false; //Blue
-        colors[1] = false; //Green
-        colors[2] = false; //Red
-        colors[3] = false; //Yellow
-        // colors[4] = false; //Null
+        speed=0.5;
     }
 
     /**
@@ -203,6 +191,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         sendStatistics();
+<<<<<<< HEAD
 
         ds = DriverStation.getInstance();
         
@@ -237,6 +226,8 @@ public class Robot extends TimedRobot {
                 colors[i] = false;
                 }
         }
+=======
+>>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
         
         swerve.sendInput(driver.getX(Hand.kLeft), -driver.getY(Hand.kLeft), driver.getX(Hand.kRight), false, driver.leftTrigger.isBeingPressed());
         // turret.updateAngle();
@@ -326,6 +317,7 @@ public class Robot extends TimedRobot {
             }
             visionprocessor.findTarget();
         }
+		
     }
 
     /**
@@ -349,6 +341,7 @@ public class Robot extends TimedRobot {
         hopper.sendToDashboard();
         spinner.sendToDashboard();
         visionprocessor.sendToDashboard();
+<<<<<<< HEAD
 
         //code for sending colors to dashboard - LFH
         SmartDashboard.putBoolean("Bue", colors[0]);
@@ -356,6 +349,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Red", colors[2]);
         SmartDashboard.putBoolean("Yellow", colors[3]);
 
+=======
+        shooter.outputToSmartDashboard();
+        SmartDashboard.putNumber("Shooter Speed", speed);
+        intake.outputToSmartDashboard();
+        spinner.outputToSmartDashboard();
+
+>>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
     }
 
     /**
@@ -363,6 +363,7 @@ public class Robot extends TimedRobot {
      * Dashboard
      */
     private void queueAutonomousModes() {
+<<<<<<< HEAD
         
         autonomousMode.addOption("Do Nothing",      new DoNothing());
         autonomousMode.addOption("Three Ball Auto", new ThreeBallAuto());
@@ -373,6 +374,12 @@ public class Robot extends TimedRobot {
         autonomousMode.addOption("Testing",         new DriveStraightAuto());
         // autonomousMode.addOption("Tests Every Motor", new EverythingAuto());
 
+=======
+
+        autonomousMode.addOption("Do Nothing", new DoNothing());
+        autonomousMode.addOption("Drive Straight", new DriveStraight());
+        autonomousMode.addOption("Turn", new Turn());
+>>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
         SmartDashboard.putData("Autonomous Selection", autonomousMode);
     }
 

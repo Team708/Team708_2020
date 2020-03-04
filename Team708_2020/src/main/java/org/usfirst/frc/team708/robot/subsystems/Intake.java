@@ -151,6 +151,7 @@ public class Intake extends Subsystem {
         if (intakeMotorSpeed != 0)
            intakeMotorSpeed = 0 * motordirection;
         else
+<<<<<<< HEAD
             intakeMotorSpeed = 1 * motordirection;
         
             Robot.spinner.spinnerMotor.set(intakeMotorSpeed);  //turns motor off
@@ -181,6 +182,12 @@ public class Intake extends Subsystem {
             Robot.spinner.spinnerMotor.set(motordirection);  //turns motor off
         else
             moveMotorIntakeOut();
+=======
+            intakeMotor.set(0);
+
+    
+
+>>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
     }
 
     @Override
