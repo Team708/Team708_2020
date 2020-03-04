@@ -35,7 +35,7 @@ public class Intake extends Subsystem {
     public boolean stopHanger = false;
 
     private double motordirection = .5; //intake Motor speed
-    private double intakeMotorSpeed;     //start with motor spinning forward
+                                       //start with motor spinning forward
     private DigitalInput hangerExtended;
     private DigitalInput hangerRetracted;
 
@@ -65,8 +65,7 @@ public class Intake extends Subsystem {
         camSolenoid.set(DoubleSolenoid.Value.kForward);   // I
         pivotSolenoid.set(DoubleSolenoid.Value.kReverse); // O
         moveMotorIntakeOut();
-        Robot.hopper.moveMotorClockwise();
-        Robot.shooter.feederSlow();
+        // Robot.hopper.moveMotorClockwise();
         inHangerPosition = false;
         inIntakePosition = true;
     }
@@ -124,7 +123,7 @@ public class Intake extends Subsystem {
                 Robot.spinner.spinnerMotor.set(-Y);
                 // Robot.spinner.spinnerPID.setReference(50, ControlType.kPosition); //169 max
             else if (Y>0 && notRetracted())
-                // Robot.spinner.spinnerPID.setReference(20, ControlType.kPosition); //5 min
+                // Robot.spinner.spinnerPID.setReference(20, ControlType.kPosition); //.5 min
                 Robot.spinner.spinnerMotor.set(-Y);
             else 
                 Robot.spinner.spinnerMotor.set(0);
@@ -147,6 +146,7 @@ public class Intake extends Subsystem {
         return intakeIn;
     }
 
+<<<<<<< HEAD
     public void intakeToggleMotor(){
         if (intakeMotorSpeed != 0)
            intakeMotorSpeed = 0 * motordirection;
@@ -157,6 +157,8 @@ public class Intake extends Subsystem {
             Robot.spinner.spinnerMotor.set(intakeMotorSpeed);  //turns motor off
         }    
     
+=======
+>>>>>>> parent of 882a475... ohmy-crap after HH
     public void moveMotorIntakeIn(){
         intakeIn = true;
         Robot.spinner.spinnerMotor.set(0);  //turns motor off
@@ -177,9 +179,9 @@ public class Intake extends Subsystem {
 
     public void toggleMotorIntake(){
         motordirection *= -1;
-        
+
         if (intakeIn)
-            Robot.spinner.spinnerMotor.set(motordirection);  //turns motor off
+            Robot.spinner.spinnerMotor.set(0);  //turns motor off
         else
             moveMotorIntakeOut();
 =======
