@@ -35,7 +35,13 @@ public class shootAutoCommand extends Command {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+<<<<<<< HEAD
         Robot.shooter.feederOn();
+=======
+
+        // Robot.shooter.feederOn();
+        // Robot.shooter.moveHoodUp();
+>>>>>>> parent of 1e7ea3f... hopefully practice bot works
     }
 
     // Make this return true when this Command no longer needs to run execute()

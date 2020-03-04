@@ -87,6 +87,7 @@ public class Shooter extends Subsystem {
             // feederMotor.set(0);
             // shooterMotor.set(-speed);        
             // shooterMotor2.set(speed);        
+<<<<<<< HEAD
         }
 
         public void feederOff(){
@@ -96,6 +97,17 @@ public class Shooter extends Subsystem {
         public void feederSlow(){
             feederMotor.set(-.17);
         }
+=======
+    }
+
+    public void feederOff(){
+        feederMotor.set(0);
+    }
+        
+    public void feederSlow(){
+        feederMotor.set(-.17);
+    }
+>>>>>>> parent of 1e7ea3f... hopefully practice bot works
 
     public void stopShooter() {
         feederOff();

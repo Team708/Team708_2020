@@ -295,6 +295,11 @@ public class Robot extends TimedRobot {
 			swerve.rotate(180);
         else if(driver.xButton.wasPressed())
             swerve.rotate(270);
+<<<<<<< HEAD
+=======
+        else if(driver.rightBumper.wasPressed())
+            swerve.rotate(77);
+>>>>>>> parent of 1e7ea3f... hopefully practice bot works
         else if(driver.startButton.wasPressed()){
             swerve.wheelBrake();
             driver.rumble(1.0, 1.0);

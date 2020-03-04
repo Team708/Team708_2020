@@ -179,9 +179,15 @@ public class Intake extends Subsystem {
 
     public void toggleMotorIntake(){
         motordirection *= -1;
+<<<<<<< HEAD
 
         if (intakeIn)
             Robot.spinner.spinnerMotor.set(0);  //turns motor off
+=======
+        
+        if (intakeIn)
+            Robot.spinner.spinnerMotor.set(motordirection);  //turns motor off
+>>>>>>> parent of 1e7ea3f... hopefully practice bot works
         else
             moveMotorIntakeOut();
 =======
