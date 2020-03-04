@@ -7,7 +7,6 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc.team708.robot.Constants;
-import org.usfirst.frc.team708.robot.Robot;
 import org.usfirst.frc.team708.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -22,10 +21,14 @@ public class Spinner extends Subsystem {
     public  CANPIDController spinnerPID;
 
     private boolean pistonExtend;
+<<<<<<< HEAD
     private double  spinnerMotorSpeed = .3;
 
     // public  boolean spinnerRotateStop;
     // public Solenoid  deployColorWheel;
+=======
+    public boolean spinnerRotateStop;
+>>>>>>> parent of 8976e44... its back
 
 public Spinner() {
     spinnerMotor = new CANSparkMax(RobotMap.kspinnerMotor, MotorType.kBrushless);
@@ -59,7 +62,7 @@ public Spinner() {
 }
 
 public void SpinMotor(double speed) {
-    spinnerMotor.set(spinnerMotorSpeed);
+    spinnerMotor.set(0.2);
 }
 
 // public void StopSpin() {
@@ -78,10 +81,11 @@ public void spinnerRotateThreeTimes() {
     spinnerPID.setReference(-Constants.kSPIN_THREE_TIMES, ControlType.kPosition);
 }
 
+//if (spinnerEncoder.getPosition()> Constants.SPINNER_POSITION_STOP)
+
 public void spinnerMotorStop() {
     spinnerMotor.set(0);
 }
-
 public void resetSpinnerEncoder() {
     spinnerEncoder.setPosition(0.0);
 }
@@ -109,9 +113,10 @@ public void pistonRetract() {
 
     }
     
-    public void sendToDashboard() {
+    public void outputToSmartDashboard() {
         SmartDashboard.putNumber("SpinnerEncoder", getSpinMotorCount());
 
+<<<<<<< HEAD
         SmartDashboard.putString("SpinnerTargetColor", Robot.wheelTargetColor);
         SmartDashboard.putBoolean("SpinnerPistion", pistonExtend);
 
@@ -120,6 +125,8 @@ public void pistonRetract() {
         // SmartDashboard.putBoolean("SpinnerGreen",  Robot.colors[1]);
         // SmartDashboard.putBoolean("SpinnerRed",    Robot.colors[2]);
         // SmartDashboard.putBoolean("SpinnerYellow", Robot.colors[3]);
+=======
+>>>>>>> parent of 8976e44... its back
     }
 
 }
