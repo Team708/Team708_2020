@@ -193,6 +193,7 @@ public class Robot extends TimedRobot {
         sendStatistics();
 <<<<<<< HEAD
 
+<<<<<<< HEAD
         ds = DriverStation.getInstance();
         
         ColorWheelStage3 = ds.getGameSpecificMessage();
@@ -216,24 +217,51 @@ public class Robot extends TimedRobot {
                     break;
                 default:
                     wheelTargetColor = "Color Not Read";
+=======
+            ds = DriverStation.getInstance();
+            ColorWheelStage3 = ds.getGameSpecificMessage();
+            if(ColorWheelStage3.length() > 0){
+                switch(ColorWheelStage3.charAt(0)){
+                    case 'B' :
+                        wheelTargetColor = "Blue";
+                        colors[0] = true;
+                      break;
+                    case 'G' :
+                        wheelTargetColor = "Green";
+                        colors[1] = true;
+                      break;
+                        case 'R' :
+                        wheelTargetColor = "Red";
+                        colors[2] = true;
+                      break;
+                    case 'Y' :
+                        wheelTargetColor = "Yellow";
+                        colors[3] = true;
+                      break;
+                    default:
+                        wheelTargetColor = "Color Not Read";
+                        // colors[4] = true;
+                    }
+                }else{
+                    wheelTargetColor = "Color Not Available";
+>>>>>>> parent of 8976e44... its back
                     for(int i = 0; i < colors.length; i++){
                         colors[i] = false;
                     }
-            }
-        }else{
-            wheelTargetColor = "Color Not Available";
-            for(int i = 0; i < colors.length; i++){
-                colors[i] = false;
                 }
+<<<<<<< HEAD
         }
 =======
 >>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
+=======
+>>>>>>> parent of 8976e44... its back
         
         swerve.sendInput(driver.getX(Hand.kLeft), -driver.getY(Hand.kLeft), driver.getX(Hand.kRight), false, driver.leftTrigger.isBeingPressed());
         // turret.updateAngle();
 
         operator.update();
 
+<<<<<<< HEAD
         if(operator.leftCenterClick.wasPressed()) {
             intake.shiftToHanger();
             operator.rumble(1.0, 1.0);
@@ -287,17 +315,47 @@ public class Robot extends TimedRobot {
         else {
             if (intake.stopHanger) intake.stopHanger();
          }
+=======
+        intake.intakeMotorOn(-operator.getY(Hand.kLeft));
+
+        if(operator.leftCenterClick.wasPressed())
+            intake.toggleIntake();
+        if(operator.rightBumper.isBeingPressed())
+            shooter.shootManual(speed);
+        else if(operator.rightTrigger.isBeingPressed())
+           shooter.shootAuto();
+        else
+           shooter.stopShooter();
+        if(operator.yButton.wasPressed())
+            speed += 0.1;
+        if(operator.aButton.wasPressed())
+            speed -= 0.1;
+        if(operator.leftTrigger.isBeingPressed())
+            shooter.feederOn();
+        else
+            shooter.feederOff();
+        if(operator.backButton.isBeingPressed())
+            hopper.stopMotor();
+        else if(operator.xButton.isBeingPressed())
+            hopper.reverseMotor();
+        else
+            hopper.moveMotor();
+        if (operator.bButton.wasPressed())
+            spinner.spinnerRotateOneColor();
+        if (operator.startButton.wasPressed())
+            spinner.spinnerRotateThreeTimes();
+>>>>>>> parent of 8976e44... its back
         
         driver.update();
-
 		if(driver.yButton.wasPressed())
 			swerve.rotate(0);
-		else if(driver.bButton.wasPressed())
+		if(driver.bButton.wasPressed())
 			swerve.rotate(90);
-        else if(driver.aButton.wasPressed())
+		if(driver.aButton.wasPressed())
 			swerve.rotate(180);
-        else if(driver.xButton.wasPressed())
+		if(driver.xButton.wasPressed())
             swerve.rotate(270);
+<<<<<<< HEAD
         else if(driver.rightBumper.wasPressed())
             swerve.rotate(77);
         else if(driver.startButton.wasPressed()){
@@ -318,6 +376,21 @@ public class Robot extends TimedRobot {
             visionprocessor.findTarget();
         }
 		
+=======
+        if(driver.rightBumper.wasPressed())
+            swerve.rotateDegreesfromPosition(135);
+        if(driver.leftBumper.isBeingPressed())
+            if (Math.abs(Pigeon.getInstance().getAngle().getDegrees())>60)
+                swerve.rotate(0);
+            else
+                visionprocessor.findTarget();
+        if(driver.startButton.wasPressed())
+            swerve.wheelBrake();  
+		if(driver.backButton.isBeingPressed()){
+			swerve.temporarilyDisableHeadingController();
+			swerve.zeroSensors(new RigidTransform2d(new Translation2d(Constants.ROBOT_HALF_LENGTH, Constants.kAutoStartingCorner.y() + Constants.ROBOT_HALF_WIDTH), Rotation2d.fromDegrees(0)));
+        }
+>>>>>>> parent of 8976e44... its back
     }
 
     /**
@@ -334,6 +407,7 @@ public class Robot extends TimedRobot {
 
     private void sendStatistics() {
         // if (statsTimer.get() >= Constants.SEND_STATS_INTERVAL) statsTimer.reset();
+<<<<<<< HEAD
         swerve.sendToDashboard();
         shooter.sendToDashboard();
         turret.sendToDashboard();
@@ -356,6 +430,26 @@ public class Robot extends TimedRobot {
         spinner.outputToSmartDashboard();
 
 >>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
+=======
+        // drivetrain.sendToDashboard();
+        swerve.outputToSmartDashboard();
+        visionprocessor.sendToDashboard();
+        shooter.outputToSmartDashboard();
+        intake.outputToSmartDashboard();
+        spinner.outputToSmartDashboard();
+
+        SmartDashboard.putNumber("Shooter Speed", speed);
+        SmartDashboard.putString("Target Color for Spinner", wheelTargetColor);
+
+        //puts colors to dashboard
+        SmartDashboard.putBoolean("Blue", colors[0]);
+        SmartDashboard.putBoolean("Green", colors[1]);
+        SmartDashboard.putBoolean("Red", colors[2]);
+        SmartDashboard.putBoolean("Yellow", colors[3]);
+        // SmartDashboard.putBoolean("null", colors[4]);
+        // SmartDashboard.putBoolean("Robot Enabled", enabled);
+
+>>>>>>> parent of 8976e44... its back
     }
 
     /**
@@ -379,7 +473,12 @@ public class Robot extends TimedRobot {
         autonomousMode.addOption("Do Nothing", new DoNothing());
         autonomousMode.addOption("Drive Straight", new DriveStraight());
         autonomousMode.addOption("Turn", new Turn());
+<<<<<<< HEAD
 >>>>>>> parent of 91d4b0d... Some commands and autos; Adds color control
+=======
+        autonomousMode.addOption("Tests Every Motor", new EverythingAuto());
+
+>>>>>>> parent of 8976e44... its back
         SmartDashboard.putData("Autonomous Selection", autonomousMode);
     }
 
@@ -387,12 +486,15 @@ public class Robot extends TimedRobot {
      * Sends every subsystem to the Smart Dashboard
      */
     private void sendDashboardSubsystems() {
-       SmartDashboard.putData(visionprocessor);
        SmartDashboard.putData(swerve);
+<<<<<<< HEAD
        SmartDashboard.putData(shooter);
        SmartDashboard.putData(turret);
        SmartDashboard.putData(intake);
        SmartDashboard.putData(hopper);
        SmartDashboard.putData(spinner);
+=======
+
+>>>>>>> parent of 8976e44... its back
     }
 }
