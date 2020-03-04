@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class Shooter extends Subsystem {
 
-<<<<<<< HEAD
     public CANSparkMax shooterMotor, shooterMotor2, feederMotor;
     public CANEncoder  shooterEncoder, shooterEncoder2, feederEncoder;
     private CANPIDController shooterPIDController, shooterPIDController2, feederPIDController;
@@ -52,23 +51,6 @@ public class Shooter extends Subsystem {
         shooterMotor.setIdleMode(IdleMode.kCoast);
         shooterMotor2.setIdleMode(IdleMode.kCoast);
 
-=======
-    public CANSparkMax shooterMotor, feederMotor;
-
-    public boolean shooterSet = false;
-    public CANEncoder shooterEncoder, feederEncoder;
-    private CANPIDController shooterPIDController;
-    public double targetSpeed;
-    public Solenoid hoodSolenoid;
-    public boolean hoodUp = true;
-    private double FlyWheelEffeciency = .235;
-
-    public Shooter(){
-
-        shooterMotor = new CANSparkMax(RobotMap.kshooterShootMotor, MotorType.kBrushless);
-        feederMotor = new CANSparkMax(RobotMap.kfeederFeedMotor, MotorType.kBrushless);
-        shooterMotor.setInverted(true);
->>>>>>> parent of 8976e44... its back
         feederMotor.setIdleMode(IdleMode.kBrake);
 
         shooterEncoder = new CANEncoder(shooterMotor);
@@ -92,7 +74,6 @@ public class Shooter extends Subsystem {
         hoodSolenoid = new Solenoid(RobotMap.hoodSolenoid);
         hoodSolenoid.set(hoodUp); //Starts with hood down
     }
-<<<<<<< HEAD
     
     public void feederOn(){
         // double RPM = determineShooterSpeed(Robot.visionprocessor.getDistance());
@@ -106,15 +87,6 @@ public class Shooter extends Subsystem {
             // feederMotor.set(0);
             // shooterMotor.set(-speed);        
             // shooterMotor2.set(speed);        
-=======
-
-    public void feederOn(){
-        if (isShooterAtSpeed())
-            feederMotor.set(0.84);
-        else
-            feederMotor.set(0);
-        
->>>>>>> parent of 8976e44... its back
     }
 
     public void feederOff(){
@@ -199,7 +171,6 @@ public class Shooter extends Subsystem {
         hoodUp = !hoodUp;
         hoodSolenoid.set(hoodUp);
     }
-<<<<<<< HEAD
     
     public void sendToDashboard() {
         
@@ -211,18 +182,6 @@ public class Shooter extends Subsystem {
         SmartDashboard.putNumber("Shooter1 velocity", shooterEncoder.getVelocity());
         SmartDashboard.putNumber("Shooter2 velocity", shooterEncoder2.getVelocity());
         SmartDashboard.putNumber("Shooter target speed", targetSpeed);
-=======
-    public void outputToSmartDashboard() {
-        
-        SmartDashboard.putBoolean("Target Speed Achieved", isShooterAtSpeed());
-        SmartDashboard.putNumber("Theor. RPM", ((determineShooterSpeed(Robot.visionprocessor.getDistance())*Constants.kSHOOTER_MAXSPEED)));
-        SmartDashboard.putNumber("Theor. RPM %", ((determineShooterSpeed(Robot.visionprocessor.getDistance()))));
-        SmartDashboard.putNumber("RPM", determineShooterSpeed(Robot.visionprocessor.getDistance()));
-        SmartDashboard.putNumber("velocity", shooterEncoder.getVelocity());
-        SmartDashboard.putNumber("target speed", targetSpeed);
-        
-
->>>>>>> parent of 8976e44... its back
     }
 
     @Override

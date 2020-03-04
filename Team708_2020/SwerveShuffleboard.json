@@ -45,24 +45,9 @@
               "_title": "Game Color"
             }
           },
-<<<<<<< HEAD
           "0,3": {
-=======
-          "13,0": {
->>>>>>> parent of 8976e44... its back
             "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "Basic Subsystem",
-              "_source0": "network_table:///SmartDashboard/Swerve",
-              "_title": "Swerve"
-            }
-          },
-          "6,7": {
-            "size": [
-              3,
+              4,
               2
             ],
             "content": {
@@ -84,143 +69,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-<<<<<<< HEAD
           "19,15": {
-=======
-          "12,7": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 0 Angle",
-              "_title": "Module 0 Angle"
-            }
-          },
-          "12,5": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Swerve State",
-              "_title": "Swerve State"
-            }
-          },
-          "0,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Theor. RPM",
-              "_title": "Theor. RPM"
-            }
-          },
-          "15,5": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 3 raw value",
-              "_title": "Module 3 raw value"
-            }
-          },
-          "9,5": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Times Called",
-              "_title": "Times Called"
-            }
-          },
-          "3,7": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Yaw",
-              "_title": "Yaw"
-            }
-          },
-          "15,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Shooter Speed",
-              "_title": "Shooter Speed"
-            }
-          },
-          "6,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 0 Inches Driven",
-              "_title": "Module 0 Inches Driven"
-            }
-          },
-          "9,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Modules Used",
-              "_title": "Modules Used"
-            }
-          },
-          "12,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 0 raw value",
-              "_title": "Module 0 raw value"
-            }
-          },
-          "15,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 3 Angle",
-              "_title": "Module 3 Angle"
-            }
-          },
-          "18,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Theor. RPM %",
-              "_title": "Theor. RPM %"
-            }
-          },
-          "6,0": {
->>>>>>> parent of 8976e44... its back
             "size": [
               3,
               3
@@ -240,68 +89,8 @@
             ],
             "content": {
               "_type": "Text View",
-<<<<<<< HEAD
               "_source0": "network_table:///SmartDashboard/FMS Match Time",
               "_title": "FMS Match Time"
-=======
-              "_source0": "network_table:///SmartDashboard/Module 3 Pulse Width",
-              "_title": "Module 3 Pulse Width"
-            }
-          },
-          "18,0": {
-            "size": [
-              4,
-              3
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Target Color for Spinner",
-              "_title": "Target Color for Spinner"
-            }
-          },
-          "3,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Pigeon Temp",
-              "_title": "Pigeon Temp"
-            }
-          },
-          "18,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 1 raw value",
-              "_title": "Module 1 raw value"
-            }
-          },
-          "21,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Module 2 Angle",
-              "_title": "Module 2 Angle"
-            }
-          },
-          "3,5": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/SpinnerEncoder",
-              "_title": "SpinnerEncoder"
->>>>>>> parent of 8976e44... its back
             }
           },
           "0,5": {
@@ -352,7 +141,6 @@
             ],
             "content": {
               "_type": "Text View",
-<<<<<<< HEAD
               "_source0": "network_table:///SmartDashboard/Vision_Distance ",
               "_title": "SmartDashboard/Vision_Distance "
             }
@@ -384,46 +172,6 @@
             }
           },
           "2,11": {
-=======
-              "_source0": "network_table:///FMSInfo/GameSpecificMessage",
-              "_title": "FMSInfo/GameSpecificMessage"
-            }
-          },
-          "22,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
-              "_title": "limelight_PipelineName"
-            }
-          },
-          "24,2": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/limelight_Interface",
-              "_title": "limelight_Interface"
-            }
-          },
-          "24,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/limelight_Stream",
-              "_title": "limelight_Stream"
-            }
-          },
-          "24,4": {
->>>>>>> parent of 8976e44... its back
             "size": [
               2,
               3
@@ -444,33 +192,12 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Green",
-<<<<<<< HEAD
               "_title": "SmartDashboard/Green",
-=======
-              "_title": "Green",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "24,10": {
-            "size": [
-              3,
-              3
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Red",
-              "_title": "Red",
->>>>>>> parent of 8976e44... its back
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-<<<<<<< HEAD
           "7,3": {
-=======
-          "0,11": {
->>>>>>> parent of 8976e44... its back
             "size": [
               3,
               3
@@ -482,7 +209,6 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
-<<<<<<< HEAD
           },
           "4,3": {
             "size": [
@@ -496,8 +222,6 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
-=======
->>>>>>> parent of 8976e44... its back
           }
         }
       }
@@ -514,13 +238,8 @@
         "tiles": {
           "9,0": {
             "size": [
-<<<<<<< HEAD
               1,
               1
-=======
-              6,
-              11
->>>>>>> parent of 8976e44... its back
             ],
             "content": {
               "_type": "Text View",
@@ -528,15 +247,9 @@
               "_title": "SmartDashboard/Module 0 Angle"
             }
           },
-<<<<<<< HEAD
           "11,0": {
             "size": [
               1,
-=======
-          "24,0": {
-            "size": [
-              2,
->>>>>>> parent of 8976e44... its back
               1
             ],
             "content": {
@@ -544,26 +257,8 @@
               "_source0": "network_table:///SmartDashboard/Module 1 Angle",
               "_title": "SmartDashboard/Module 1 Angle"
             }
-<<<<<<< HEAD
           },
           "11,2": {
-=======
-          }
-        }
-      }
-    },
-    {
-      "title": "Color Accessing",
-      "autoPopulate": false,
-      "autoPopulatePrefix": "",
-      "widgetPane": {
-        "gridSize": 64.0,
-        "showGrid": true,
-        "hgap": 16.0,
-        "vgap": 16.0,
-        "tiles": {
-          "5,0": {
->>>>>>> parent of 8976e44... its back
             "size": [
               1,
               1
@@ -574,11 +269,7 @@
               "_title": "SmartDashboard/Module 3 Angle"
             }
           },
-<<<<<<< HEAD
           "9,2": {
-=======
-          "9,0": {
->>>>>>> parent of 8976e44... its back
             "size": [
               1,
               1
@@ -611,11 +302,7 @@
               "_title": "SmartDashboard/turret Encoder count"
             }
           },
-<<<<<<< HEAD
           "14,0": {
-=======
-          "8,2": {
->>>>>>> parent of 8976e44... its back
             "size": [
               3,
               2
@@ -626,11 +313,7 @@
               "_title": "SmartDashboard/SpinnerEncoder"
             }
           },
-<<<<<<< HEAD
           "14,2": {
-=======
-          "10,2": {
->>>>>>> parent of 8976e44... its back
             "size": [
               3,
               2
@@ -648,16 +331,9 @@
     }
   ],
   "windowGeometry": {
-<<<<<<< HEAD
     "x": -6.0,
     "y": -720.0,
     "width": 1292.0,
     "height": 1409.3333740234375
-=======
-    "x": 0.0,
-    "y": 0.0,
-    "width": 1280.0,
-    "height": 680.0
->>>>>>> parent of 8976e44... its back
   }
 }
